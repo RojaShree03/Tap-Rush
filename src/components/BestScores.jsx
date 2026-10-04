@@ -90,11 +90,11 @@ function BestScores({
 
                 <button
                     type="button"
-                    className="scores-back-button"
+                    className="icon-button back-button"
                     onClick={onBack}
                     aria-label="Go back"
                 >
-                    ←
+                   <span>←</span> 
                 </button>
 
                 <div className="scores-heading">
