@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import TapButton from "./TapButton"
 import useGameTimer from "../hooks/useGameTimer"
 
+
 function GameScreen({
     gameMode,
     duration,
@@ -14,20 +15,28 @@ function GameScreen({
     /* GAME STATE */
 
     const [score, setScore] = useState(0)
+
     const [totalTaps, setTotalTaps] = useState(0)
+
     const [perfectTaps, setPerfectTaps] = useState(0)
+
     const [combo, setCombo] = useState(0)
+
     const [bestCombo, setBestCombo] = useState(0)
+
     const [lives, setLives] = useState(
         gameMode === "pro" ? 3 : null
     )
+
     const [misses, setMisses] = useState(0)
+
 
     /* ZERO RUSH */
 
     const [remaining, setRemaining] = useState(
         startingNumber
     )
+
 
     /* TARGET POSITION */
 
@@ -36,29 +45,40 @@ function GameScreen({
         y: 50
     })
 
+
     /* FEEDBACK */
 
     const [isPerfect, setIsPerfect] = useState(false)
+
     const [feedback, setFeedback] = useState("")
+
     const [isGameOver, setIsGameOver] = useState(false)
+
 
     /* REFS */
 
     const gameAreaRef = useRef(null)
+
     const completedRef = useRef(false)
 
     const perfectTimeoutRef = useRef(null)
+
     const feedbackTimeoutRef = useRef(null)
+
 
     /* MODE */
 
     const isEasy = gameMode === "easy"
+
     const isNormal = gameMode === "normal"
+
     const isPro = gameMode === "pro"
+
     const isZeroRush = gameMode === "zeroRush"
 
     const isMovingMode =
         isNormal || isPro
+
 
     /* GAME OVER */
 
@@ -69,6 +89,7 @@ function GameScreen({
         }
 
         completedRef.current = true
+
         setIsGameOver(true)
 
         onGameOver({
@@ -94,6 +115,7 @@ function GameScreen({
         onGameOver
     ])
 
+
     /* TIMER */
 
     const {
@@ -103,6 +125,7 @@ function GameScreen({
         duration,
         handleTimeUp
     )
+
 
     /* START TIMER */
 
@@ -128,6 +151,7 @@ function GameScreen({
 
     }, [resetTimer])
 
+
     /* MOVE TARGET */
 
     const moveTarget = useCallback(() => {
@@ -149,6 +173,7 @@ function GameScreen({
 
     }, [])
 
+
     /* INITIAL TARGET */
 
     useEffect(() => {
@@ -161,6 +186,7 @@ function GameScreen({
         isMovingMode,
         moveTarget
     ])
+
 
     /* FEEDBACK */
 
@@ -184,6 +210,7 @@ function GameScreen({
         []
     )
 
+
     /* PERFECT FEEDBACK */
 
     const triggerPerfect = useCallback(() => {
@@ -203,6 +230,7 @@ function GameScreen({
 
     }, [])
 
+
     /* ZERO RUSH COMPLETE */
 
     const finishZeroRush = useCallback(() => {
@@ -212,6 +240,7 @@ function GameScreen({
         }
 
         completedRef.current = true
+
         setIsGameOver(true)
 
         const elapsedSeconds =
@@ -247,6 +276,7 @@ function GameScreen({
         onGameOver
     ])
 
+
     /* SUCCESSFUL TAP */
 
     const handleTap = useCallback(() => {
@@ -257,6 +287,7 @@ function GameScreen({
         ) {
             return
         }
+
 
         /* ZERO RUSH */
 
@@ -281,6 +312,7 @@ function GameScreen({
             return
         }
 
+
         /* SCORE */
 
         setScore(
@@ -291,6 +323,7 @@ function GameScreen({
             current => current + 1
         )
 
+
         /* COMBO */
 
         setCombo(current => {
@@ -299,20 +332,24 @@ function GameScreen({
                 current + 1
 
             setBestCombo(best =>
+
                 Math.max(
                     best,
                     nextCombo
                 )
+
             )
 
             return nextCombo
         })
+
 
         /* EASY */
 
         if (isEasy) {
             return
         }
+
 
         /* MOVING TARGET */
 
@@ -340,6 +377,7 @@ function GameScreen({
         showFeedback,
         moveTarget
     ])
+
 
     /* MISS */
 
@@ -370,6 +408,7 @@ function GameScreen({
             if (nextLives === 0) {
 
                 completedRef.current = true
+
                 setIsGameOver(true)
 
                 onGameOver({
@@ -405,14 +444,17 @@ function GameScreen({
         moveTarget
     ])
 
+
     /* FORMAT TIME */
 
     const formattedTime =
         timeLeft.toFixed(1)
 
+
     /* RENDER */
 
     return (
+
         <section
             className={`game-screen game-${gameMode}`}
         >
@@ -426,22 +468,17 @@ function GameScreen({
                 <div className="game-stat">
 
                     <span className="game-stat-label">
-                        {isZeroRush
-                            ? "REMAINING"
-                            : "SCORE"}
+                        SCORE
                     </span>
 
-                    <strong
-                        className="game-stat-value"
-                    >
-                        {isZeroRush
-                            ? remaining
-                            : score}
-                    </strong>
+                    <span className="game-stat-value">
+                        {score}
+                    </span>
 
                 </div>
 
-                {/* TIMER */}
+
+                {/* TIME */}
 
                 <div className="game-timer">
 
@@ -449,55 +486,70 @@ function GameScreen({
                         TIME
                     </span>
 
-                    <strong
-                        className="game-stat-value"
-                    >
+                    <span className="game-stat-value">
                         {formattedTime}
-                    </strong>
+                    </span>
 
                 </div>
 
-                {/* LIVES */}
 
-                {isPro && (
-                    <div className="game-lives">
+                {/* PRO STATS */}
 
-                        <span className="game-stat-label">
-                            LIVES
-                        </span>
+                {isPro ? (
 
-                        <strong
-                            className="game-stat-value"
-                            aria-label={`${lives} lives remaining`}
-                        >
-                            {"♥".repeat(lives)}
-                            {"♡".repeat(
-                                3 - lives
-                            )}
-                        </strong>
+                    <div className="pro-stats">
+
+                        {/* COMBO */}
+
+                        <div className="game-combo">
+
+                            <span className="game-stat-label">
+                                COMBO
+                            </span>
+
+                            <span className="game-stat-value">
+                                {combo}
+                            </span>
+
+                        </div>
+
+
+                        {/* LIVES */}
+
+                        <div className="game-lives">
+
+                            <span className="game-stat-label">
+                                LIVES
+                            </span>
+
+                            <span className="game-stat-value">
+                                {"❤️".repeat(lives)}
+                            </span>
+
+                        </div>
 
                     </div>
-                )}
 
-                {/* COMBO */}
+                ) : (
 
-                {!isZeroRush && (
+                    /* NORMAL COMBO */
+
                     <div className="game-combo">
 
                         <span className="game-stat-label">
                             COMBO
                         </span>
 
-                        <strong
-                            className="game-stat-value"
-                        >
+                        <span className="game-stat-value">
                             {combo}
-                        </strong>
+                        </span>
 
                     </div>
+
                 )}
 
             </header>
+
 
             {/* PLAY AREA */}
 
@@ -510,6 +562,7 @@ function GameScreen({
                 {/* EASY */}
 
                 {isEasy && (
+
                     <div className="easy-game-center">
 
                         <TapButton
@@ -519,17 +572,22 @@ function GameScreen({
                         />
 
                         {feedback && (
+
                             <span className="tap-feedback">
                                 {feedback}
                             </span>
+
                         )}
 
                     </div>
+
                 )}
+
 
                 {/* NORMAL / PRO */}
 
                 {isMovingMode && (
+
                     <div
                         className="moving-target-wrapper"
                         style={{
@@ -544,17 +602,21 @@ function GameScreen({
                                 event.stopPropagation()
 
                                 handleTap()
+
                             }}
                             isPerfect={isPerfect}
                             label="+1"
                         />
 
                     </div>
+
                 )}
+
 
                 {/* ZERO RUSH */}
 
                 {isZeroRush && (
+
                     <div className="zero-rush-center">
 
                         <span className="zero-rush-label">
@@ -571,6 +633,7 @@ function GameScreen({
                                 event.stopPropagation()
 
                                 handleTap()
+
                             }}
                             isPerfect={false}
                             label="-1"
@@ -581,28 +644,28 @@ function GameScreen({
                         </span>
 
                     </div>
+
                 )}
+
 
                 {/* GAME FEEDBACK */}
 
-                {feedback && !isEasy && (
-                    <div
-                        className={`game-feedback ${feedback === "Miss"
-                                ? "feedback-miss"
-                                : "feedback-perfect"
-                            }`}
-                    >
-                        {feedback}
-                    </div>
-                )}
+                {feedback === "Miss" && (
 
+                    <div className="game-feedback feedback-miss">
+                        Miss
+                    </div>
+
+                )}
             </main>
+
 
             {/* GAME FOOTER */}
 
             <footer className="game-footer">
 
                 {isZeroRush ? (
+
                     <>
                         <span>
                             Every tap brings you closer.
@@ -612,18 +675,22 @@ function GameScreen({
                             {remaining} remaining
                         </strong>
                     </>
+
                 ) : (
+
                     <>
                         <span>
                             {isPro
                                 ? "Don't miss the target."
-                                : "Stay focused and tap fast."}
+                                : "Stay focused and tap fast."
+                            }
                         </span>
 
                         <strong>
                             Best combo: {bestCombo}
                         </strong>
                     </>
+
                 )}
 
             </footer>

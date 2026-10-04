@@ -2,9 +2,11 @@
 
 .game-screen {
     position: relative;
+
     width: 100%;
     min-height: 100vh;
     height: 100dvh;
+
     overflow: hidden;
 
     display: flex;
@@ -26,16 +28,23 @@
 
 .game-header {
     position: relative;
+
     z-index: 20;
 
-    width: min(920px, calc(100% - 48px));
+    width: min(1080px, calc(100% - 48px));
 
     margin: 0 auto;
+
     padding: 30px 0 20px;
 
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
     align-items: center;
+
+    column-gap: 0;
 }
 
 
@@ -46,46 +55,80 @@
 .game-lives,
 .game-combo {
     display: flex;
+
     flex-direction: column;
+
     gap: 6px;
+
+    min-width: 0;
 }
 
 
-/* GAME STAT */
+/* SCORE */
 
 .game-stat {
     align-items: flex-start;
+
+    justify-self: stretch;
 }
 
 
-/* GAME TIMER */
+/* TIME */
 
 .game-timer {
     align-items: center;
+
+    justify-self: stretch;
+
     text-align: center;
 
-    min-width: 110px;
+    min-width: 0;
 }
 
 
-/* GAME LIVES */
+/* NORMAL COMBO */
 
-.game-lives {
+.game-header>.game-combo {
+    grid-column: 3 / 5;
+
     align-items: flex-end;
+
+    justify-self: stretch;
+
     text-align: right;
 }
 
 
-/* GAME COMBO */
+/* PRO STATS */
 
-.game-combo {
-    position: absolute;
+.pro-stats {
+    display: contents;
+}
 
-    right: 0;
-    top: 30px;
 
-    align-items: flex-end;
-    text-align: right;
+/* PRO COMBO */
+
+.pro-stats .game-combo {
+    grid-column: 3;
+
+    align-items: center;
+
+    justify-self: stretch;
+
+    text-align: center;
+}
+
+
+/* PRO LIVES */
+
+.pro-stats .game-lives {
+    grid-column: 4;
+
+    align-items: center;
+
+    justify-self: stretch;
+
+    text-align: center;
 }
 
 
@@ -95,9 +138,11 @@
     color: #8e8e93;
 
     font-size: 9px;
+
     line-height: 1;
 
     font-weight: 700;
+
     letter-spacing: 0.16em;
 }
 
@@ -108,9 +153,11 @@
     color: #111111;
 
     font-size: 20px;
+
     line-height: 1;
 
     font-weight: 700;
+
     letter-spacing: -0.035em;
 
     font-variant-numeric: tabular-nums;
@@ -121,17 +168,21 @@
 
 .game-timer .game-stat-value {
     font-size: 24px;
+
     letter-spacing: -0.045em;
 }
 
 
-/* LIVES VALUE */
+/* PRO LIVES */
 
-.game-lives .game-stat-value {
+.game-pro .game-lives .game-stat-value {
     color: #ff3b30;
 
     font-size: 15px;
+
     letter-spacing: 0.08em;
+
+    white-space: nowrap;
 }
 
 
@@ -160,18 +211,23 @@
 
 .easy-game-center {
     position: absolute;
+
     inset: 0;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     padding: 24px;
 }
 
+
 .easy-game-center .tap-button {
     flex-shrink: 0;
 }
+
 
 /* MOVING TARGET */
 
@@ -183,7 +239,9 @@
     transform: translate(-50%, -50%);
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     transition:
@@ -201,6 +259,7 @@
     height: 160px;
 
     border: none;
+
     border-radius: 50%;
 
     background:
@@ -212,6 +271,7 @@
     color: #111111;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -289,12 +349,15 @@
 
 .tap-button-label {
     position: relative;
+
     z-index: 3;
 
     font-size: 28px;
+
     line-height: 1;
 
     font-weight: 700;
+
     letter-spacing: -0.045em;
 }
 
@@ -315,6 +378,7 @@
     position: absolute;
 
     top: -34px;
+
     left: 50%;
 
     transform: translateX(-50%);
@@ -322,9 +386,11 @@
     color: #0071e3;
 
     font-size: 9px;
+
     line-height: 1;
 
     font-weight: 800;
+
     letter-spacing: 0.18em;
 
     white-space: nowrap;
@@ -339,6 +405,7 @@
     position: absolute;
 
     left: 50%;
+
     bottom: 18%;
 
     transform: translateX(-50%);
@@ -346,9 +413,11 @@
     color: #0071e3;
 
     font-size: 10px;
+
     font-weight: 800;
 
     letter-spacing: 0.16em;
+
     text-transform: uppercase;
 
     pointer-events: none;
@@ -363,6 +432,7 @@
     z-index: 15;
 
     left: 50%;
+
     bottom: 10%;
 
     transform: translateX(-50%);
@@ -370,6 +440,7 @@
     padding: 9px 15px;
 
     border: 1px solid rgba(0, 0, 0, 0.06);
+
     border-radius: 999px;
 
     background: rgba(255, 255, 255, 0.88);
@@ -380,12 +451,15 @@
     color: #111111;
 
     font-size: 9px;
+
     font-weight: 800;
 
     letter-spacing: 0.15em;
+
     text-transform: uppercase;
 
     backdrop-filter: blur(16px);
+
     -webkit-backdrop-filter: blur(16px);
 
     pointer-events: none;
@@ -410,11 +484,15 @@
 
 .zero-rush-center {
     position: absolute;
+
     inset: 0;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     justify-content: center;
 
     text-align: center;
@@ -429,6 +507,7 @@
     color: #8e8e93;
 
     font-size: 10px;
+
     font-weight: 800;
 
     letter-spacing: 0.18em;
@@ -443,9 +522,11 @@
     color: #111111;
 
     font-size: clamp(64px, 9vw, 100px);
+
     line-height: 0.9;
 
     font-weight: 700;
+
     letter-spacing: -0.07em;
 
     font-variant-numeric: tabular-nums;
@@ -456,6 +537,7 @@
 
 .zero-rush-center .tap-button {
     width: 165px;
+
     height: 165px;
 }
 
@@ -475,6 +557,7 @@
     color: #6e6e73;
 
     font-size: 13px;
+
     font-weight: 600;
 
     letter-spacing: 0.02em;
@@ -497,6 +580,7 @@
 
 .game-easy .tap-button {
     width: 175px;
+
     height: 175px;
 }
 
@@ -512,6 +596,7 @@
 
 .game-normal .tap-button {
     width: 150px;
+
     height: 150px;
 }
 
@@ -527,6 +612,7 @@
 
 .game-pro .tap-button {
     width: 128px;
+
     height: 128px;
 }
 
@@ -538,13 +624,6 @@
 }
 
 
-/* PRO LIVES */
-
-.game-pro .game-lives .game-stat-value {
-    color: #ff3b30;
-}
-
-
 /* GAME FOOTER */
 
 .game-footer {
@@ -553,19 +632,23 @@
     z-index: 10;
 
     left: 28px;
-    bottom: 28px;
 
-    transform: translateX(-50%);
+    bottom: 28px;
 
     width: auto;
 
     display: flex;
+
     align-items: center;
+
     justify-content: flex-start;
+
+    gap: 4px;
 
     color: #8e8e93;
 
     font-size: 10px;
+
     line-height: 1.4;
 
     text-align: left;
@@ -578,19 +661,21 @@
     color: #6e6e73;
 
     font-size: 10px;
+
     font-weight: 650;
 
     font-variant-numeric: tabular-nums;
 }
 
 
-/* DESKTOP TARGET AREA */
+/* DESKTOP */
 
 @media (min-width: 1000px) {
 
     .game-area {
         height: calc(100vh - 170px);
     }
+
 }
 
 
@@ -602,13 +687,16 @@
         width: calc(100% - 40px);
     }
 
+
     .game-area {
         width: calc(100% - 40px);
     }
 
+
     .game-footer {
-        width: calc(100% - 40px);
+        left: 20px;
     }
+
 }
 
 
@@ -617,11 +705,12 @@
 @media (max-width: 600px) {
 
     .game-header {
-        width: calc(100% - 32px);
+        width: calc(100% - 28px);
 
         padding: 22px 0 14px;
 
-        grid-template-columns: 1fr auto 1fr;
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
     }
 
 
@@ -634,10 +723,6 @@
 
     /* MOBILE TIMER */
 
-    .game-timer {
-        min-width: 90px;
-    }
-
     .game-timer .game-stat-value {
         font-size: 21px;
     }
@@ -646,22 +731,56 @@
     /* MOBILE LABEL */
 
     .game-stat-label {
-        font-size: 8px;
-        letter-spacing: 0.13em;
+        font-size: 7px;
+
+        letter-spacing: 0.10em;
     }
 
 
-    /* MOBILE COMBO */
+    /* MOBILE NORMAL COMBO */
 
-    .game-combo {
-        display: none;
-    }
+    .game-header>.game-combo {
+        grid-column: 3 / 5;
 
-
-    /* MOBILE LIVES */
-
-    .game-lives {
         align-items: flex-end;
+
+        text-align: right;
+    }
+
+
+    /* MOBILE PRO COMBO */
+
+    .pro-stats .game-combo {
+        grid-column: 3;
+
+        align-items: center;
+
+        text-align: center;
+    }
+
+
+    /* MOBILE PRO LIVES */
+
+    .pro-stats .game-lives {
+        grid-column: 4;
+
+        align-items: center;
+
+        text-align: center;
+    }
+
+
+    /* MOBILE PRO VALUE */
+
+    .pro-stats .game-stat-value {
+        font-size: 15px;
+    }
+
+
+    .game-pro .game-lives .game-stat-value {
+        font-size: 11px;
+
+        letter-spacing: 0.03em;
     }
 
 
@@ -676,44 +795,51 @@
     }
 
 
-    /* EASY */
+    /* MOBILE EASY */
 
     .game-easy .tap-button {
         width: 145px;
+
         height: 145px;
-        transform: translateY(-60px);
+
+        transform: none;
     }
+
 
     .game-easy .tap-button-label {
         font-size: 25px;
     }
 
 
-    /* NORMAL */
+    /* MOBILE NORMAL */
 
     .game-normal .tap-button {
         width: 125px;
+
         height: 125px;
     }
+
 
     .game-normal .tap-button-label {
         font-size: 22px;
     }
 
 
-    /* PRO */
+    /* MOBILE PRO */
 
     .game-pro .tap-button {
         width: 106px;
+
         height: 106px;
     }
+
 
     .game-pro .tap-button-label {
         font-size: 19px;
     }
 
 
-    /* ZERO RUSH */
+    /* MOBILE ZERO RUSH */
 
     .zero-rush-number {
         margin-bottom: 20px;
@@ -721,10 +847,13 @@
         font-size: clamp(62px, 20vw, 90px);
     }
 
+
     .zero-rush-center .tap-button {
         width: 145px;
+
         height: 145px;
     }
+
 
     .zero-rush-center .tap-button-label {
         font-size: 25px;
@@ -737,6 +866,7 @@
         bottom: 17%;
     }
 
+
     .game-feedback {
         bottom: 8%;
     }
@@ -745,89 +875,150 @@
     /* MOBILE FOOTER */
 
     .game-footer {
-        width: calc(100% - 32px);
-
         left: 18px;
+
         bottom: 42px;
 
         width: auto;
 
-        transform: translateX(-50%);
+        transform: none;
 
         display: flex;
+
         align-items: center;
+
         justify-content: flex-start;
+
+        gap: 4px;
 
         text-align: left;
 
         font-size: 9px;
     }
 
+
     .game-footer strong {
         font-size: 9px;
     }
+
 }
 
-    /* SMALL MOBILE */
 
-    @media (max-width: 380px) {
+/* SMALL MOBILE */
 
-        .game-header {
-            width: calc(100% - 24px);
-            padding-top: 17px;
-        }
+@media (max-width: 380px) {
 
-        .game-area {
-            width: calc(100% - 24px);
-            height: calc(100vh - 135px);
-        }
+    .game-header {
+        width: calc(100% - 24px);
 
-        .game-footer {
-            width: calc(100% - 24px);
-            bottom: 38px;
-            left: 16px;
-        }
-
-        .game-easy .tap-button {
-            width: 132px;
-            height: 132px;
-        }
-
-        .game-normal .tap-button {
-            width: 112px;
-            height: 112px;
-        }
-
-        .game-pro .tap-button {
-            width: 94px;
-            height: 94px;
-        }
-
-        .zero-rush-center .tap-button {
-            width: 132px;
-            height: 132px;
-        }
-
-        .zero-rush-number {
-            font-size: 60px;
-        }
+        padding-top: 17px;
     }
 
 
-    /* TOUCH DEVICES */
+    .game-area {
+        width: calc(100% - 24px);
 
-    @media (hover: none) {
-
-        .tap-button:hover {
-            transform: none;
-
-            box-shadow:
-                0 24px 55px rgba(0, 0, 0, 0.10),
-                0 4px 12px rgba(0, 0, 0, 0.05),
-                inset 0 1px 1px rgba(255, 255, 255, 0.95);
-        }
-
-        .tap-button:active {
-            transform: scale(0.91);
-        }
+        height: calc(100vh - 135px);
     }
+
+
+    /* SMALL MOBILE HEADER */
+
+    .game-stat-label {
+        font-size: 6px;
+
+        letter-spacing: 0.07em;
+    }
+
+
+    .game-stat-value {
+        font-size: 14px;
+    }
+
+
+    .game-timer .game-stat-value {
+        font-size: 18px;
+    }
+
+
+    .pro-stats .game-stat-value {
+        font-size: 12px;
+    }
+
+
+    .game-pro .game-lives .game-stat-value {
+        font-size: 9px;
+    }
+
+
+    /* SMALL MOBILE FOOTER */
+
+    .game-footer {
+        left: 16px;
+
+        bottom: 38px;
+    }
+
+
+    /* SMALL EASY */
+
+    .game-easy .tap-button {
+        width: 132px;
+
+        height: 132px;
+    }
+
+
+    /* SMALL NORMAL */
+
+    .game-normal .tap-button {
+        width: 112px;
+
+        height: 112px;
+    }
+
+
+    /* SMALL PRO */
+
+    .game-pro .tap-button {
+        width: 94px;
+
+        height: 94px;
+    }
+
+
+    /* SMALL ZERO RUSH */
+
+    .zero-rush-center .tap-button {
+        width: 132px;
+
+        height: 132px;
+    }
+
+
+    .zero-rush-number {
+        font-size: 60px;
+    }
+
+}
+
+
+/* TOUCH DEVICES */
+
+@media (hover: none) {
+
+    .tap-button:hover {
+        transform: none;
+
+        box-shadow:
+            0 24px 55px rgba(0, 0, 0, 0.10),
+            0 4px 12px rgba(0, 0, 0, 0.05),
+            inset 0 1px 1px rgba(255, 255, 255, 0.95);
+    }
+
+
+    .tap-button:active {
+        transform: scale(0.91);
+    }
+
+}
