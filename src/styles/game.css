@@ -1,0 +1,805 @@
+/* GAME SCREEN */
+
+.game-screen {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 50% 42%,
+            rgba(255, 255, 255, 1),
+            rgba(245, 245, 247, 0.96) 68%);
+
+    color: #111111;
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+
+/* GAME HEADER */
+
+.game-header {
+    position: relative;
+    z-index: 20;
+
+    width: min(920px, calc(100% - 48px));
+
+    margin: 0 auto;
+    padding: 30px 0 20px;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+
+/* GAME STAT */
+
+.game-stat,
+.game-timer,
+.game-lives,
+.game-combo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+
+/* GAME STAT */
+
+.game-stat {
+    align-items: flex-start;
+}
+
+
+/* GAME TIMER */
+
+.game-timer {
+    align-items: center;
+    text-align: center;
+
+    min-width: 110px;
+}
+
+
+/* GAME LIVES */
+
+.game-lives {
+    align-items: flex-end;
+    text-align: right;
+}
+
+
+/* GAME COMBO */
+
+.game-combo {
+    position: absolute;
+
+    right: 0;
+    top: 30px;
+
+    align-items: flex-end;
+    text-align: right;
+}
+
+
+/* GAME STAT LABEL */
+
+.game-stat-label {
+    color: #8e8e93;
+
+    font-size: 9px;
+    line-height: 1;
+
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+
+/* GAME STAT VALUE */
+
+.game-stat-value {
+    color: #111111;
+
+    font-size: 20px;
+    line-height: 1;
+
+    font-weight: 700;
+    letter-spacing: -0.035em;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* TIMER VALUE */
+
+.game-timer .game-stat-value {
+    font-size: 24px;
+    letter-spacing: -0.045em;
+}
+
+
+/* LIVES VALUE */
+
+.game-lives .game-stat-value {
+    color: #ff3b30;
+
+    font-size: 15px;
+    letter-spacing: 0.08em;
+}
+
+
+/* GAME AREA */
+
+.game-area {
+    position: relative;
+
+    width: min(1080px, calc(100% - 48px));
+
+    height: calc(100vh - 165px);
+
+    min-height: 500px;
+
+    margin: 0 auto;
+
+    cursor: crosshair;
+}
+
+
+/* EASY CENTER */
+
+.easy-game-center {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* MOVING TARGET */
+
+.moving-target-wrapper {
+    position: absolute;
+
+    z-index: 5;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        left 220ms cubic-bezier(0.22, 1, 0.36, 1),
+        top 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* TAP BUTTON */
+
+.tap-button {
+    position: relative;
+
+    width: 160px;
+    height: 160px;
+
+    border: none;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle at 35% 27%,
+            #ffffff 0%,
+            #fafafd 38%,
+            #eeeeF3 100%);
+
+    color: #111111;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 24px 55px rgba(0, 0, 0, 0.10),
+        0 4px 12px rgba(0, 0, 0, 0.05),
+        inset 0 1px 1px rgba(255, 255, 255, 0.95);
+
+    transition:
+        transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 180ms ease;
+}
+
+
+/* TAP BUTTON OUTER RING */
+
+.tap-button::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -9px;
+
+    border: 1px solid rgba(0, 0, 0, 0.07);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+/* TAP BUTTON INNER RING */
+
+.tap-button::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 11px;
+
+    border: 1px solid rgba(0, 0, 0, 0.045);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+/* TAP BUTTON HOVER */
+
+.tap-button:hover {
+    transform: scale(1.035);
+
+    box-shadow:
+        0 30px 65px rgba(0, 0, 0, 0.13),
+        0 5px 15px rgba(0, 0, 0, 0.05),
+        inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+
+/* TAP BUTTON ACTIVE */
+
+.tap-button:active {
+    transform: scale(0.92);
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.09),
+        inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+
+/* TAP BUTTON LABEL */
+
+.tap-button-label {
+    position: relative;
+    z-index: 3;
+
+    font-size: 28px;
+    line-height: 1;
+
+    font-weight: 700;
+    letter-spacing: -0.045em;
+}
+
+
+/* PERFECT STATE */
+
+.tap-button.perfect-ready {
+    box-shadow:
+        0 24px 55px rgba(0, 113, 227, 0.13),
+        0 0 0 1px rgba(0, 113, 227, 0.08),
+        inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+
+/* PERFECT LABEL */
+
+.tap-button-perfect {
+    position: absolute;
+
+    top: -34px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: #0071e3;
+
+    font-size: 9px;
+    line-height: 1;
+
+    font-weight: 800;
+    letter-spacing: 0.18em;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+
+/* TAP FEEDBACK */
+
+.tap-feedback {
+    position: absolute;
+
+    left: 50%;
+    bottom: 18%;
+
+    transform: translateX(-50%);
+
+    color: #0071e3;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+
+    pointer-events: none;
+}
+
+
+/* GAME FEEDBACK */
+
+.game-feedback {
+    position: absolute;
+
+    z-index: 15;
+
+    left: 50%;
+    bottom: 10%;
+
+    transform: translateX(-50%);
+
+    padding: 9px 15px;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.07);
+
+    color: #111111;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    pointer-events: none;
+}
+
+
+/* PERFECT FEEDBACK */
+
+.game-feedback.feedback-perfect {
+    color: #0071e3;
+}
+
+
+/* MISS FEEDBACK */
+
+.game-feedback.feedback-miss {
+    color: #ff3b30;
+}
+
+
+/* ZERO RUSH */
+
+.zero-rush-center {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+/* ZERO RUSH LABEL */
+
+.zero-rush-label {
+    margin-bottom: 12px;
+
+    color: #8e8e93;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.18em;
+}
+
+
+/* ZERO RUSH NUMBER */
+
+.zero-rush-number {
+    margin-bottom: 24px;
+
+    color: #111111;
+
+    font-size: clamp(64px, 9vw, 100px);
+    line-height: 0.9;
+
+    font-weight: 700;
+    letter-spacing: -0.07em;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ZERO RUSH BUTTON */
+
+.zero-rush-center .tap-button {
+    width: 165px;
+    height: 165px;
+}
+
+
+/* ZERO RUSH BUTTON LABEL */
+
+.zero-rush-center .tap-button-label {
+    font-size: 29px;
+}
+
+
+/* ZERO RUSH TARGET */
+
+.zero-rush-target {
+    margin-top: 22px;
+
+    color: #6e6e73;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 0.02em;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ZERO RUSH BACKGROUND */
+
+.game-zeroRush {
+    background:
+        radial-gradient(circle at 50% 42%,
+            rgba(255, 255, 255, 1),
+            rgba(245, 245, 247, 0.96) 70%);
+}
+
+
+/* EASY MODE */
+
+.game-easy .tap-button {
+    width: 175px;
+    height: 175px;
+}
+
+
+/* EASY LABEL */
+
+.game-easy .tap-button-label {
+    font-size: 30px;
+}
+
+
+/* NORMAL MODE */
+
+.game-normal .tap-button {
+    width: 150px;
+    height: 150px;
+}
+
+
+/* NORMAL LABEL */
+
+.game-normal .tap-button-label {
+    font-size: 27px;
+}
+
+
+/* PRO MODE */
+
+.game-pro .tap-button {
+    width: 128px;
+    height: 128px;
+}
+
+
+/* PRO LABEL */
+
+.game-pro .tap-button-label {
+    font-size: 23px;
+}
+
+
+/* PRO LIVES */
+
+.game-pro .game-lives .game-stat-value {
+    color: #ff3b30;
+}
+
+
+/* GAME FOOTER */
+
+.game-footer {
+    position: absolute;
+
+    z-index: 10;
+
+    left: 50%;
+    bottom: 28px;
+
+    transform: translateX(-50%);
+
+    width: min(920px, calc(100% - 48px));
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #8e8e93;
+
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+
+/* FOOTER STRONG */
+
+.game-footer strong {
+    color: #6e6e73;
+
+    font-size: 10px;
+    font-weight: 650;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* DESKTOP TARGET AREA */
+
+@media (min-width: 1000px) {
+
+    .game-area {
+        height: calc(100vh - 170px);
+    }
+}
+
+
+/* TABLET */
+
+@media (max-width: 900px) {
+
+    .game-header {
+        width: calc(100% - 40px);
+    }
+
+    .game-area {
+        width: calc(100% - 40px);
+    }
+
+    .game-footer {
+        width: calc(100% - 40px);
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .game-header {
+        width: calc(100% - 32px);
+
+        padding: 22px 0 14px;
+
+        grid-template-columns: 1fr auto 1fr;
+    }
+
+
+    /* MOBILE STAT */
+
+    .game-stat-value {
+        font-size: 17px;
+    }
+
+
+    /* MOBILE TIMER */
+
+    .game-timer {
+        min-width: 90px;
+    }
+
+    .game-timer .game-stat-value {
+        font-size: 21px;
+    }
+
+
+    /* MOBILE LABEL */
+
+    .game-stat-label {
+        font-size: 8px;
+        letter-spacing: 0.13em;
+    }
+
+
+    /* MOBILE COMBO */
+
+    .game-combo {
+        display: none;
+    }
+
+
+    /* MOBILE LIVES */
+
+    .game-lives {
+        align-items: flex-end;
+    }
+
+
+    /* MOBILE AREA */
+
+    .game-area {
+        width: calc(100% - 32px);
+
+        height: calc(100vh - 145px);
+
+        min-height: 0;
+    }
+
+
+    /* EASY */
+
+    .game-easy .tap-button {
+        width: 145px;
+        height: 145px;
+    }
+
+    .game-easy .tap-button-label {
+        font-size: 25px;
+    }
+
+
+    /* NORMAL */
+
+    .game-normal .tap-button {
+        width: 125px;
+        height: 125px;
+    }
+
+    .game-normal .tap-button-label {
+        font-size: 22px;
+    }
+
+
+    /* PRO */
+
+    .game-pro .tap-button {
+        width: 106px;
+        height: 106px;
+    }
+
+    .game-pro .tap-button-label {
+        font-size: 19px;
+    }
+
+
+    /* ZERO RUSH */
+
+    .zero-rush-number {
+        margin-bottom: 20px;
+
+        font-size: clamp(62px, 20vw, 90px);
+    }
+
+    .zero-rush-center .tap-button {
+        width: 145px;
+        height: 145px;
+    }
+
+    .zero-rush-center .tap-button-label {
+        font-size: 25px;
+    }
+
+
+    /* MOBILE FEEDBACK */
+
+    .tap-feedback {
+        bottom: 17%;
+    }
+
+    .game-feedback {
+        bottom: 8%;
+    }
+
+
+    /* MOBILE FOOTER */
+
+    .game-footer {
+        width: calc(100% - 32px);
+
+        bottom: 16px;
+
+        font-size: 9px;
+    }
+
+    .game-footer strong {
+        font-size: 9px;
+    }
+}
+
+
+/* SMALL MOBILE */
+
+@media (max-width: 380px) {
+
+    .game-header {
+        width: calc(100% - 24px);
+        padding-top: 17px;
+    }
+
+    .game-area {
+        width: calc(100% - 24px);
+        height: calc(100vh - 135px);
+    }
+
+    .game-footer {
+        width: calc(100% - 24px);
+    }
+
+    .game-easy .tap-button {
+        width: 132px;
+        height: 132px;
+    }
+
+    .game-normal .tap-button {
+        width: 112px;
+        height: 112px;
+    }
+
+    .game-pro .tap-button {
+        width: 94px;
+        height: 94px;
+    }
+
+    .zero-rush-center .tap-button {
+        width: 132px;
+        height: 132px;
+    }
+
+    .zero-rush-number {
+        font-size: 60px;
+    }
+}
+
+
+/* TOUCH DEVICES */
+
+@media (hover: none) {
+
+    .tap-button:hover {
+        transform: none;
+
+        box-shadow:
+            0 24px 55px rgba(0, 0, 0, 0.10),
+            0 4px 12px rgba(0, 0, 0, 0.05),
+            inset 0 1px 1px rgba(255, 255, 255, 0.95);
+    }
+
+    .tap-button:active {
+        transform: scale(0.91);
+    }
+}
